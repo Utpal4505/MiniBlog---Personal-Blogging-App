@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
   return (
     <>
-      <header className="p-4 shadow-xl border-b-[#3c4044]">
+      <header className="p-4 shadow-xl border-b-[#3c4044] backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-[1100px] mx-auto">
           <div className="flex justify-between items-center">
             {/* left side */}
