@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { BlogContext } from "../src/context/BlogContext";
 
 function Add_blogs() {
+  const { addBlog } = useContext(BlogContext);
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  //----------------Functions----------------//
+  const onhandleSubmit = (e) => {
+    e.preventDefault();
+    if (!title.trim() || !body.trim()) {
+      alert("Please Enter Valid Detail");
+      return;
+    }
+
+    const blog = {
+      id: Date.now(),
+      title,
+      body,
+    };
+
+    addBlog(blog);
+    setTitle("");
+    setBody("");
+  };
+
   return (
     <>
       <div className="max-w-4xl mx-auto px-2 py-18">
@@ -35,6 +59,8 @@ function Add_blogs() {
                 type="text"
                 id="title"
                 name="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter your blog title..."
                 className="w-full px-6 py-4 text-[#f0f0f0] text-lg bg-[#2a2e32cc] rounded-xl border border-[#3c404480] transition-all duration-200 focus:outline-none focus:border-[#f0f0f080] focus:ring-2 focus:ring-[#f0f0f080]"
               />
@@ -50,6 +76,8 @@ function Add_blogs() {
                 name="body"
                 id="body"
                 rows="14"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
                 placeholder="Write your blog content here..."
                 className="w-full px-6 py-4 text-[#f0f0f0] text-lg bg-[#2a2e32cc] rounded-xl border border-[#3c404480] transition-all duration-200 focus:outline-none focus:border-[#f0f0f080] focus:ring-2 focus:ring-[#f0f0f080] leading-relaxed resize-y "
               ></textarea>
@@ -58,6 +86,7 @@ function Add_blogs() {
             <div className="flex gap-4 pt-6 flex-col sm:flex-row">
               <button
                 type="submit"
+                onClick={onhandleSubmit}
                 className="px-8 py-4 bg-[#f0f0f0] rounded-xl cursor-pointer text-lg font-semibold text-[#212121] flex-1 transition-all duration-200 shadow-lg hover:shadow-xl hover:bg-[#f0f0f0e6]"
               >
                 Submit

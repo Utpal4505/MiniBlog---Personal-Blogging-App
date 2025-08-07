@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { BlogContext } from "../src/context/BlogContext";
 
 function Home() {
+  const { blogs } = useContext(BlogContext);
+
   return (
     <>
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -34,27 +37,43 @@ function Home() {
           </div>
         </div>
         <div className="space-y-8">
-          <div className="text-center">
+          <div>
+            <div className="text-center">
             <h2 className="text-3xl font-bold mb-4 text-[#f0f0f0]">
               Latest Stories
             </h2>
             <p className="text-[#b3b3b3]">
               Fresh insights and ideas from our community
             </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 home-article">
-              {/* Here's the home article */}
             </div>
-            <div className="text-center pt-8">
-              <Link
-                to="/blogs"
-                className="inline-flex items-center text-[#f0f0f0] font-semibold text-lg gap-2 px-4 py-2 hover:bg-[#2f333780] hover:text-[#FAFAFA] rounded-lg transition-all duration-200 hover:scale-105"
-              >
-                <span>View All Blogs</span>
-                <span>
-                  →
-                </span>
-              </Link>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+              {blogs.map((blog) => (
+                <div
+                  key={blog.id}
+                  className="p-6 rounded-xl bg-[#25292c4d] border border-[#3c404480] transition-all duration-300 break-words hover:shadow-2xl hover:scale-[1.02] hover:shadow-[#fcfcfc05] hover:bg-[#3A3F45B3]"
+                >
+                  <h2 className="text-2xl font-bold text-[#f0f0f0] mb-4 break-words">
+                    {blog.title.length > 40
+                      ? blog.title.slice(0, 40) + "...."
+                      : blog.title}
+                  </h2>
+                  <p className="text-[#b3b3b3]">
+                    {blog.body.length > 200
+                      ? blog.body.slice(0, 200) + "..."
+                      : blog.body}
+                  </p>
+                </div>
+              ))}
             </div>
+          </div>
+          <div className="text-center pt-8">
+            <Link
+              to="/blogs"
+              className="inline-flex items-center text-[#f0f0f0] font-semibold text-lg gap-2 px-4 py-2 hover:bg-[#2f333780] hover:text-[#FAFAFA] rounded-lg transition-all duration-200 hover:scale-105"
+            >
+              <span>View All Blogs</span>
+              <span>→</span>
+            </Link>
           </div>
         </div>
       </main>
