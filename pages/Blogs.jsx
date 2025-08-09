@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { BlogContext } from "../src/context/BlogContext";
+import { BlogContext } from "../src/context/BlogContext.jsx";
 
 function Blogs() {
   const { blogs, deleteBlog } = useContext(BlogContext);

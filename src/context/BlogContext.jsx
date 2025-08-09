@@ -10,7 +10,11 @@ export function BlogContextProvider({ children }) {
   };
 
   const deleteBlog = (id) => {
-    setBlogs(blogs.filter((blog) => blog.id !== id));
+    const shoulddelete = window.confirm(
+      "Are you sure you want to delete this blog?"
+    );
+
+    if (shoulddelete) setBlogs(blogs.filter((blog) => blog.id !== id));
   };
 
   return (

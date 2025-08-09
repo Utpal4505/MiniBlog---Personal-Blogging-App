@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { BlogContext } from "../src/context/BlogContext";
+import { BlogContext } from "../src/context/BlogContext.jsx";
 
 function Home() {
-  const { blogs } = useContext(BlogContext);
+  const { blogs, deleteBlog } = useContext(BlogContext);
 
   return (
     <>
@@ -39,29 +39,48 @@ function Home() {
         <div className="space-y-8">
           <div>
             <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4 text-[#f0f0f0]">
-              Latest Stories
-            </h2>
-            <p className="text-[#b3b3b3]">
-              Fresh insights and ideas from our community
-            </p>
+              <h2 className="text-3xl font-bold mb-4 text-[#f0f0f0]">
+                Latest Stories
+              </h2>
+              <p className="text-[#b3b3b3]">
+                Fresh insights and ideas from our community
+              </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
               {blogs.map((blog) => (
                 <div
                   key={blog.id}
-                  className="p-6 rounded-xl bg-[#25292c4d] border border-[#3c404480] transition-all duration-300 break-words hover:shadow-2xl hover:scale-[1.02] hover:shadow-[#fcfcfc05] hover:bg-[#3A3F45B3]"
+                  className="group p-6 rounded-xl bg-[#25292c4d] border border-[#3c404480] transition-all duration-300 break-words hover:shadow-2xl hover:scale-[1.02] hover:shadow-[#fcfcfc05] hover:bg-[#3a3f452d]"
                 >
-                  <h2 className="text-2xl font-bold text-[#f0f0f0] mb-4 break-words">
-                    {blog.title.length > 40
-                      ? blog.title.slice(0, 40) + "...."
-                      : blog.title}
-                  </h2>
-                  <p className="text-[#b3b3b3]">
-                    {blog.body.length > 200
-                      ? blog.body.slice(0, 200) + "..."
-                      : blog.body}
-                  </p>
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-bold text-[#f0f0f0] mb-4 break-words">
+                      {blog.title.length > 40
+                        ? blog.title.slice(0, 40) + "...."
+                        : blog.title}
+                    </h2>
+                    <p className="text-[#b3b3b3]">
+                      {blog.body.length > 200
+                        ? blog.body.slice(0, 200) + "..."
+                        : blog.body}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <Link
+                      to={`/blog/${blog.id}`}
+                      className="inline-flex items-center gap-2 text-[#f0f0f0] hover:text-[#f0f0f0cc] font-semibold transition-all duration-200 group"
+                    >
+                      <span>Read More</span>
+                      <span className="transform group-hover:translate-x-1 transition-transform">
+                        →
+                      </span>
+                    </Link>
+                    <button
+                      className="text-[#b3b3b3] hover:text-[#EF4444] transition-colors px-3 py-1 hover:bg-[#ef44441a] rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100"
+                      onClick={() => deleteBlog(blog.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
